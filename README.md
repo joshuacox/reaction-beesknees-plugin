@@ -14,7 +14,7 @@ This tutorial covers many different parts of an application you can change with 
 
 As you start building your own plugins, consider separating customizations into their own individual plugins.
 
-# Page 1
+# Page 1: Getting started
 
 ## In this step, you'll learn
 
@@ -75,7 +75,7 @@ Go to your GitHub repository and you should see your plugin files updated. Now w
 
 <- PAGE 2 ->
 
-# Set up your plugin
+# Page 2: Set up your plugin
 
 ## In this step, you'll learn
 
@@ -124,17 +124,23 @@ Reaction.registerPackage({
 
 ## Loading the plugin
 
-1. To see load the plugin, run:
+1. To see load the plugin, reset the database by running:
 
 ```sh
 reaction reset -n
 ```
 
-What does this do? Resetting the database and restarting the app, allowing the app to read the `register.js` file you just created. Registry entries are added when the app first starts, but they don't get reloaded if they already exist.
-
-An alternative option to load a plugin would be to remove that entry directly from the `Packages` collection.
-
 > ProTip: Pass the `-n` flag to `reaction reset` to skip deleting the node_modules folder.
+
+2. Restart the app by running:
+
+```sh
+reaction
+```
+
+What does this do? Resetting the database and restarting the app allows the app to read the `register.js` file you just created. Registry entries are added when the app first starts, but they don't get reloaded if they already exist.
+
+You should see this message in the console:
 
 ### What's happening underneath?
 
@@ -148,15 +154,19 @@ When the loader finds these files, it dynamically adds imports so that this code
 
 ### How does it look in the database?
 
-Using the`mongo` shell: Confirm that the `reaction-sticky-footer-plugin` has been added to the `Packages` collection by querying the database.
+There are two main ways to look at the contents of the Reaction database: using the `mongo` shell or using an app like RoboMongo. Both ways are useful tools in development.
 
-First, in a new Terminal tab, start `mongo`:
+### Using the shell
+
+Confirm that the `reaction-beesknees-plugin` has been added to the `Packages` collection by querying the database.
+
+1. First, in a new Terminal tab from your main `my-store` directory:
 
 ```
-$ meteor mongo
+meteor mongo
 ```
 
-Then, query for the package by name:
+2. Then, query for the package by name:
 
 ```
 db.getCollection('Packages').find({name: "reaction-beesknees-plugin"})
@@ -174,6 +184,14 @@ icon" : "fa fa-vine",
 "registry" : null,
 "layout" : null }
 ```
+
+> ProTip: An alternative option to loading a plugin would be to remove that entry directly from the `Packages` collection.
+
+### Using RoboMongo
+
+1. Download the app and open it.
+2. Set the database address to 127.0.0.1:3001 and click Connect.
+3. Click on `Packages` and look for `reaction-beesknees-plugin` under Name.
 
 > To do: Add screenshot of RoboMongo
 
